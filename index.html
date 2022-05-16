@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+        justify-content: center;
+
+      }
+
+      li button {
+        font-size: 18px;
+        color: #666;
+        flex: 1 1 auto;
+        margin: 0 10px;
+      }
+
+
+	  .items{
+		  font-size: 18px;
+		  font-family: "Trebuchet MS", Verdana, cursive;
+
+	  } 
+    </style>
+  </head>
+  <body>
+
+    <h1>Социальный рейтинг от лены</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button>Add item</button>
+    </div>
+
+    <ul>
+
+    </ul>
+
+    <script>
+
+var lst_of_users = []
+var user_name
+var user_score = 0
+
+let info = {
+  lst_of_info: []
+};
+
+let json_info;
+
+
+var delite_button_id = 0
+var add_person_button = document.querySelector('button');
+add_person_button.addEventListener("click", function(){
+	var input_text = document.querySelector('input');
+	var div = document.querySelector('ul');
+	var new_element = document.createElement('li');
+
+
+
+
+
+
+  score = 0;
+	new_element.textContent = input_text.value + "  -  ";
+	new_element.className = "items"
+  score_element=  document.createElement('span')
+  score_element.textContent = 0
+	div.appendChild(new_element);
+  new_element.appendChild(score_element)
+
+	
+	delite_button = document.createElement('button');
+  change_person_button = document.createElement('button');
+	new_element.appendChild(delite_button);
+  new_element.appendChild(change_person_button);
+	delite_button.textContent = "Удалить";
+  delite_button.textContent.id = "button";
+  delite_button.id = delite_button_id;
+  
+
+  user_name = input_text.value;
+
+
+  change_person_button.textContent = "Изменить количество очков";
+  change_person_button.textContent.id = "button";
+  change_person_button.id = delite_button_id
+
+  delite_button_id += 1;
+
+  change_person_button.addEventListener("click", function(idy){
+    
+    score = parseFloat(prompt('Введите изминение очков'));
+    if (parseFloat(score) == parseFloat(score)){
+    lst_of_users[idy.target.getAttribute('id')][1] = parseFloat(document.getElementById(idy.target.getAttribute('id')).parentNode.childNodes[1].textContent) + score;
+    document.getElementById(idy.target.getAttribute('id')).parentNode.childNodes[1].textContent =    parseFloat(document.getElementById(idy.target.getAttribute('id')).parentNode.childNodes[1].textContent) + score;
+    info.lst_of_info[0][0][idy.target.getAttribute('id')][1] =  parseFloat(document.getElementById(idy.target.getAttribute('id')).parentNode.childNodes[1].textContent) + score;
+    localStorage.setItem("info",JSON.stringify(info));
+
+}});
+
+	delite_button.addEventListener("click", function(idy){
+    delete lst_of_users[idy.target.getAttribute('id')];
+		document.getElementById(idy.target.getAttribute('id')).parentNode.remove();
+	});
+	
+  lst_of_users.push([user_name,user_score]);
+  info.lst_of_info[0] = [lst_of_users]
+  localStorage.setItem("info",JSON.stringify(info));
+	input_text.value = ''
+
+});
+    </script>
+  </body>
+</html>
